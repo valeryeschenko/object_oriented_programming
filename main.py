@@ -105,12 +105,23 @@ class Reviewer(Mentor):
     def __str__(self):
         return f"Имя: {self.name}\nSurname: {self.surname}\n"
 
+
+def count_gpa_grade(persons, course):
+    if not isinstance(persons, list):
+        return "Not list"
+    count_gpa = []
+    for person in persons:
+        count_gpa.extend(person.self.grades.get(course, []))
+    if not count_gpa:
+        return "По такому курсу ни у кого нет оценок"
+    return round(sum(count_gpa) / len(count_gpa), 2)
+
 # Студенты
 best_student_roy = Student('Roy', 'Eman', 'man')
 best_student_roy.courses_in_progress += ['Python', 'Sql', 'HTML']
 
 best_student_nicol = Student('Nicol', 'Jonson', 'woman')
-best_student_nicol.courses_in_progress += ['Pyton', 'Git']
+best_student_nicol.courses_in_progress += ['Pyton', 'Git', 'HTML']
 
 # Лекторы
 lecturer_mentor_sam = Lecturer('Sam', 'Buddy')
@@ -133,4 +144,5 @@ best_student_nicol.rate_lecturer(lecturer_mentor_sam, 'Git', 10)
 reviewer_mentor_jack.rate_hw(best_student_roy, 'Sql', 10)
 reviewer_mentor_bob.rate_hw(best_student_nicol, 'HTML', 10)
 
-print(best_student_nicol)
+
+
