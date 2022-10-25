@@ -111,7 +111,7 @@ def count_gpa_grade(persons, course):
         return "Not list"
     count_gpa = []
     for person in persons:
-        count_gpa.extend(person.self.grades.get(course, []))
+        count_gpa.extend(person.grades.get(course, []))
     if not count_gpa:
         return "По такому курсу ни у кого нет оценок"
     return round(sum(count_gpa) / len(count_gpa), 2)
@@ -128,7 +128,7 @@ lecturer_mentor_sam = Lecturer('Sam', 'Buddy')
 lecturer_mentor_sam.courses_attached += ['Python', 'Git']
 
 lecturer_mentor_nik = Lecturer('Nik', 'Popins')
-lecturer_mentor_nik.courses_attached += ['HTML', 'Sql']
+lecturer_mentor_nik.courses_attached += ['HTML', 'Sql', 'Git']
 
 # Проверяющие
 reviewer_mentor_jack = Reviewer('Jack', 'Gibbs')
@@ -140,9 +140,13 @@ reviewer_mentor_bob.courses_attached += ['HTML', 'Git']
 # Оценки
 best_student_roy.rate_lecturer(lecturer_mentor_sam, 'Python', 10)
 best_student_nicol.rate_lecturer(lecturer_mentor_sam, 'Git', 10)
+best_student_nicol.rate_lecturer(lecturer_mentor_nik, 'Git', 5)
 
 reviewer_mentor_jack.rate_hw(best_student_roy, 'Sql', 10)
 reviewer_mentor_bob.rate_hw(best_student_nicol, 'HTML', 10)
 
-
+best_student_nicol.finished_courses += ['Git']
+print(best_student_nicol)
+print(best_student_roy.gpa_student)
+print(count_gpa_grade([lecturer_mentor_sam, lecturer_mentor_nik], 'Git'))
 
